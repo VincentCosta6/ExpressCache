@@ -1,5 +1,5 @@
-var redis = require("redis");
 var RedisContextStore_1 = require("./RedisContextStore");
+var redis = require("redis");
 var redisConnection = redis.createClient();
 var connector = RedisContextStore_1.createStore(redisConnection, { safeMode: true });
 exports.createContext = function (key, passIns, DBCall) {

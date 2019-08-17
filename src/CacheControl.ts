@@ -1,5 +1,5 @@
-let redis = require("redis");
 import { createStore, Context, DataBaseCall } from "./RedisContextStore"
+let redis = require("redis");
 
 const redisConnection = redis.createClient();
 

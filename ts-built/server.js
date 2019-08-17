@@ -1,20 +1,11 @@
 var express_1 = require("express");
+var userContext_1 = require("./userContext");
 var app = express_1.default();
-var CacheControl_1 = require("./CacheControl");
-function passInGET(req) {
-    return { user_id: req.query.user_id };
-}
-function passInPUT(req) {
-    return { user_id: req.body.user_id };
-}
-function DBCall(passIns, resolve, reject) {
-    setTimeout(function (_) { return resolve({ hello: Math.random() * 50000000 }); }, 1500);
-}
-var userContext = CacheControl_1.createContext("USER_INFO", passInGET, DBCall);
-app.get("/", userContext.useCache(), function (req, res) {
+app.get("/", userContext_1.userContext.useCache(), function (req, res) {
     res.json({ cache: req.cache });
 });
 app.put("/", function (req, res) {
-    userContext.uncache(passInPUT, function (err, reply) {
+    userContext_1.userContext.uncache(userContext_1.passInPUT, function (err, reply) {
+        res.json({ msg: "This user is now uncached" });
     });
 });
