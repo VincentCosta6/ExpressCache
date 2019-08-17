@@ -11,5 +11,10 @@
     "url": "\u001b[2~\u001b[2~https://github.com/VincentCosta6/ExpressCache.git"
   },
   "author": "Vincent Costa",
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@types/node": "^12.7.2",
+    "express": "^4.17.1",
+    "redis": "^2.8.0"
+  }
 }
