@@ -48,6 +48,10 @@ export class RedisContextStore implements RedisContextStoreI {
 
         return newContext;
     }
+
+    getContext(ContextKey): Context {
+        return this.contexts.get(ContextKey);
+    }
 }
 
 export const createStore = (redisConnection: RedisPackage.RedisClient, options: StoreOptions): RedisContextStore => {
@@ -120,25 +124,3 @@ export class Context implements ContextI {
         }
     }
 }
-
-/*
-let realKey = extractKey(key);
-
-            redis.get(JSON.stringify(realKey), function(err, reply) {
-
-                if(!reply) {
-                    wrapper(realKey, getFromDB).then(data => {
-                        let value = JSON.stringify(extractor(data));
-
-                        redis.set(JSON.stringify(realKey), value, function(err, reply) {
-                            req.cache = data;
-                            next();
-                        })
-                    })
-                }
-                else {
-                    req.cache = JSON.parse(reply);
-                    next();
-                }
-            })
-*/

@@ -24,6 +24,9 @@ var RedisContextStore = (function () {
         this.contexts.set(key, newContext);
         return newContext;
     };
+    RedisContextStore.prototype.getContext = function (ContextKey) {
+        return this.contexts.get(ContextKey);
+    };
     return RedisContextStore;
 })();
 exports.RedisContextStore = RedisContextStore;
@@ -75,24 +78,3 @@ var Context = (function () {
     return Context;
 })();
 exports.Context = Context;
-/*
-let realKey = extractKey(key);
-
-            redis.get(JSON.stringify(realKey), function(err, reply) {
-
-                if(!reply) {
-                    wrapper(realKey, getFromDB).then(data => {
-                        let value = JSON.stringify(extractor(data));
-
-                        redis.set(JSON.stringify(realKey), value, function(err, reply) {
-                            req.cache = data;
-                            next();
-                        })
-                    })
-                }
-                else {
-                    req.cache = JSON.parse(reply);
-                    next();
-                }
-            })
-*/ 
