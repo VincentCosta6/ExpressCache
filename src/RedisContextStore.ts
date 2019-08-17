@@ -95,19 +95,21 @@ export class Context implements ContextI {
             const getPassIns = this.passIns(req);
             const redisKey: ContextRedisKey = this.redisKey(getPassIns);
 
+            if(!req.redisContext) req.cache = {};
+
             this.RedisClient.get(redisKey, function(err, reply) {
                 if(!reply) {
                     wrapper(getPassIns, this.DBCall).then(data => {
                         let value = this.converter(data);
 
                         this.RedisClient.set(redisKey, value, function(err, reply) {
-                            req.cache = data;
+                            req.redisContext[this.key] = data;
                             next();
                         })
                     })
                 }
                 else {
-                    req.cache = this.extractor(reply);
+                    req.redisContext[this.key] = this.extractor(reply);
                     next();
                 }
             })

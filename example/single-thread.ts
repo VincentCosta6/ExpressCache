@@ -1,11 +1,14 @@
 import express from "express";
-
+// CREATE STORE AND CONTEXTS BEFORE THIS
 import { userContext, passInPUT } from "./userContext"
 
 let app = express();
 
+
+
+
 app.get("/", userContext.useCache(), function(req, res) {
-    res.json({ cache: req.cache });
+    res.json({ cache: req.redisContext });
 })
 
 app.put("/", function(req, res) {

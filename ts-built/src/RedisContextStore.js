@@ -43,19 +43,21 @@ var Context = (function () {
             return function (req, res, next) {
                 var getPassIns = this.passIns(req);
                 var redisKey = this.redisKey(getPassIns);
+                if (!req.redisContext)
+                    req.cache = {};
                 this.RedisClient.get(redisKey, function (err, reply) {
                     var _this = this;
                     if (!reply) {
                         wrapper(getPassIns, this.DBCall).then(function (data) {
                             var value = _this.converter(data);
                             _this.RedisClient.set(redisKey, value, function (err, reply) {
-                                req.cache = data;
+                                req.redisContext[this.key] = data;
                                 next();
                             });
                         });
                     }
                     else {
-                        req.cache = this.extractor(reply);
+                        req.redisContext[this.key] = this.extractor(reply);
                         next();
                     }
                 });
