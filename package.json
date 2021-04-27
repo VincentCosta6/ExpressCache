@@ -15,6 +15,6 @@
   "dependencies": {
     "@types/node": "^12.7.2",
     "express": "^4.17.1",
-    "redis": "^2.8.0"
+    "redis": "^3.1.1"
   }
 }
