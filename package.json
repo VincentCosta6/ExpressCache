@@ -14,7 +14,7 @@
   "license": "UNLICENSED",
   "dependencies": {
     "@types/node": "^12.7.2",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "redis": "^2.8.0"
   }
 }
